@@ -61,7 +61,8 @@ bool MessageState::parse(uint64_t sec, const std::vector<uint8_t> &dat) {
 
     bool counter_failed = false;
     if (!ignore_counter) {
-      if (sig.type == SignalType::HONDA_COUNTER || sig.type == SignalType::VOLKSWAGEN_COUNTER || sig.type == SignalType::PEDAL_COUNTER) { 
+      if (sig.type == SignalType::HONDA_COUNTER || sig.type == SignalType::VOLKSWAGEN_COUNTER \
+       || sig.type == SignalType::FAW_COUNTER || sig.type == SignalType::PEDAL_COUNTER) {
         counter_failed = !update_counter_generic(tmp, sig.size);
       }
     }

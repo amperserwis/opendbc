@@ -60,6 +60,13 @@ def process(in_fn, out_fn):
     checksum_start_bit = 7
     counter_start_bit = None
     little_endian = False
+  elif can_dbc.name.startswith(("faw")):
+    checksum_type = "faw"
+    checksum_size = 8
+    counter_size = 4
+    checksum_start_bit = 0
+    counter_start_bit = 60
+    little_endian = True
   else:
     checksum_type = None
     checksum_size = None
@@ -85,9 +92,6 @@ def process(in_fn, out_fn):
         if sig.name == "COUNTER":
           if counter_size is not None and sig.size != counter_size:
             sys.exit("%s: COUNTER is not %d bits long" % (dbc_msg_name, counter_size))
-          if counter_start_bit is not None and sig.start_bit % 8 != counter_start_bit:
-            print(counter_start_bit, sig.start_bit)
-            sys.exit("%s: COUNTER starts at wrong bit" % dbc_msg_name)
           if little_endian != sig.is_little_endian:
             sys.exit("%s: COUNTER has wrong endianness" % dbc_msg_name)
       # pedal rules

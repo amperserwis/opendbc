@@ -32,6 +32,10 @@ unsigned int subaru_checksum(uint32_t address, const std::vector<uint8_t> &d) {
   return s & 0xFF;
 }
 
+unsigned int faw_checksum(uint32_t address, const std::vector<uint8_t> &d) {
+  return d[1] ^ d[2] ^ d[3] ^ d[4] ^ d[5] ^ d[6] ^ d[7];
+}
+
 unsigned int chrysler_checksum(uint32_t address, const std::vector<uint8_t> &d) {
   /* jeep chrysler canbus checksum from http://illmatics.com/Remote%20Car%20Hacking.pdf */
   uint8_t checksum = 0xFF;
