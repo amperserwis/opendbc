@@ -33,7 +33,13 @@ unsigned int subaru_checksum(uint32_t address, const std::vector<uint8_t> &d) {
 }
 
 unsigned int faw_checksum(uint32_t address, const std::vector<uint8_t> &d) {
-  return d[1] ^ d[2] ^ d[3] ^ d[4] ^ d[5] ^ d[6] ^ d[7];
+  uint8_t checksum = 0;
+
+  // skip checksum in first byte
+  for (int i = 1; i < d.size(); i++) {
+    checksum ^= d[i];
+  }
+  return checksum;
 }
 
 unsigned int chrysler_checksum(uint32_t address, const std::vector<uint8_t> &d) {
