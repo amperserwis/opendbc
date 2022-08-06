@@ -76,7 +76,7 @@ ChecksumState* get_checksum(const std::string& dbc_name) {
   } else if (startswith(dbc_name, "comma_body")) {
     s = new ChecksumState({8, 4, 7, 3, false, PEDAL_CHECKSUM, &pedal_checksum});
   } else if (startswith(dbc_name, "faw")) {
-    s = new ChecksumState({8, 4, 0, 0, true, XOR_CHECKSUM, &xor_checksum});
+    s = new ChecksumState({8, 4, 0, 4, true, XOR_CHECKSUM, &xor_checksum});
   }
   return s;
 }
