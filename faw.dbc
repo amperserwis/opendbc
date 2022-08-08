@@ -82,9 +82,8 @@ BO_ 272 ACC: 8 XXX
  SG_ UNKNOWN_1 : 8|12@1+ (1,0) [0|4095] "" XXX
  SG_ UNKNOWN_2 : 20|4@1+ (1,0) [0|15] "" XXX
  SG_ ACCELERATION : 24|12@1+ (1,-300) [0|255] "" XXX
- SG_ STATUS : 36|3@1+ (1,0) [0|31] "" XXX
- SG_ UNKNOWN_3 : 39|1@1+ (1,0) [0|1] "" XXX
- SG_ UNKNOWN_4 : 46|1@1+ (1,0) [0|1] "" XXX
+ SG_ STATUS : 36|4@1+ (1,0) [0|31] "x" XXX
+ SG_ UNKNOWN_3 : 46|1@1+ (1,0) [0|1] "" XXX
  SG_ COUNTER : 60|4@1+ (1,0) [0|15] "" XXX
 
 BO_ 274 LKAS: 8 XXX
