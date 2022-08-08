@@ -97,12 +97,12 @@ BO_ 274 LKAS: 8 XXX
  SG_ COUNTER : 60|4@1+ (1,0) [0|15] "" XXX
 
 BO_ 148 MAYBE_ABS: 8 XXX
- SG_ CHECKSUM : 7|8@0+ (1,0) [0|255] "" XXX
- SG_ UNKNOWN_1 : 8|16@1+ (1,0) [0|15] "" XXX
- SG_ UNKNOWN_2 : 31|8@0+ (1,0) [0|255] "" XXX
- SG_ BRAKE_PRESSED : 35|1@0+ (1,0) [0|1] "" XXX
- SG_ UNKNOWN_3 : 47|2@0+ (1,0) [0|3] "" XXX
- SG_ COUNTER : 63|4@0+ (1,0) [0|15] "" XXX
+ SG_ CHECKSUM : 0|8@1+ (1,0) [0|255] "" XXX
+ SG_ UNKNOWN_1 : 8|16@1+ (1,0) [0|15] "x" XXX
+ SG_ UNKNOWN_2 : 24|8@1+ (1,0) [0|255] "" XXX
+ SG_ BRAKE_PRESSED : 35|1@1+ (1,0) [0|1] "x" XXX
+ SG_ UNKNOWN_3 : 46|2@1+ (1,0) [0|3] "" XXX
+ SG_ COUNTER : 60|4@1+ (1,0) [0|15] "" XXX
 
 BO_ 304 ABS_3: 8 XXX
  SG_ CHECKSUM : 0|8@1+ (1,0) [0|15] "" XXX
