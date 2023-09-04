@@ -1429,8 +1429,8 @@ BO_ 1280 ACU14: 1 ACU
 
 BO_ 512 EMS20: 6 EMS
  SG_ HYDROGEN_GEAR_SHIFTER : 11|3@1+ (1,0) [0|7] "" XXX
- SG_ CF_Ems_PumpTPres : 16|8@1+ (3.137254902,0) [0|800] "kPa" FPCM,IBOX
- SG_ Split_Stat : 32|1@1+ (1,0) [0|1] "" FPCM
+ SG_ CF_Ems_PumpTPres : 16|8@1+ (3.137254902,0.0) [0.0|800.0] "kPa"  FPCM,IBOX
+ SG_ Split_Stat : 32|1@1+ (1.0,0.0) [0.0|1.0] ""  FPCM
 
 BO_ 909 FCA11: 8 FCA
  SG_ CF_VSM_Prefill : 0|1@1+ (1,0) [0|1] "" ESC
