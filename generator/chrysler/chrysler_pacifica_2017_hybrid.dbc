@@ -68,7 +68,11 @@ BO_ 608 PARKSENSE_SIGNAL: 8 XXX
  SG_ HUMAN_HAS_CONTROL : 17|1@0+ (1,0) [0|3] "" XXX
 
 BO_ 729 LKAS_HEARTBIT: 5 XXX
- SG_ LKAS_STATUS_OK : 31|16@0+ (1,0) [0|65535] "" XXX
+ SG_ LKAS_DISABLED : 24|1@0+ (1,0) [0|1] "" XXX
+ SG_ AUTO_HIGH_BEAM : 31|1@0+ (1,0) [0|1] "" XXX
+ SG_ FORWARD_1 : 7|24@0+ (1,0) [0|255] "" XXX
+ SG_ FORWARD_2 : 30|6@0+ (1,0) [0|127] "" XXX
+ SG_ FORWARD_3 : 39|8@0+ (1,0) [0|255] "" XXX
 
 BO_ 288 ACCEL_RELATED_120: 7 XXX
  SG_ COUNTER : 47|4@0+ (1,0) [0|15] "" XXX
@@ -128,6 +132,7 @@ BO_ 764 ACCEL_RELATED_2FC: 8 XXX
 BO_ 816 TRACTION_BUTTON: 8 XXX
  SG_ TRACTION_OFF : 19|1@0+ (1,0) [0|3] "" XXX
  SG_ TOGGLE_PARKSENSE : 52|1@0+ (1,0) [0|3] "" XXX
+ SG_ TOGGLE_LKAS : 53|1@0+ (1,0) [0|1] "" XXX
 
 BO_ 878 ACCEL_RELATED_36E: 8 XXX
  SG_ ACCEL_OR_RPM_2 : 15|8@0+ (1,0) [0|255] "" XXX
@@ -143,6 +148,14 @@ BO_ 268 ACC_10c: 8 XXX
  SG_ BRAKE_PERHAPS : 48|1@0+ (1,0) [0|3] "" XXX
  SG_ COUNTER : 55|4@0+ (1,0) [0|15] "" XXX
  SG_ CHECKSUM : 63|8@0+ (1,0) [0|255] "" XXX
+ 
+BO_ 632 AUTO_STOP_START: 8 XXX
+ SG_ AUTO_STOP_START_DASH : 48|1@0+ (1,0) [0|1] "" XXX
+ 
+BO_ 853 AUTO_START_STOP_BUTTON: 8 XXX
+ SG_ AUTO_START_BUTTON : 53|4@0+ (1,0) [0|15] "" XXX
+ SG_ FORWARD_1 : 7|50@0+ (1,0) [0|1] "" XXX
+ SG_ FORWARD_2 : 49|10@0+ (1,0) [0|1] "" XXX
 
 CM_ SG_ 653 BRAKE_PRESSURE "max seems to be 148";
 CM_ SG_ 746 PRNDL "5=L, 4=D, 3=N, 2=R, 1=P";
@@ -177,6 +190,8 @@ CM_ SG_ 501 ACC_SPEED_CONFIG_KPH "speed configured for ACC";
 CM_ SG_ 501 ACC_SPEED_CONFIG_MPH "speed configured for ACC";
 CM_ SG_ 501 CRUISE_STATE "may just be an icon, but seems to indicate different cruise modes: ACC and Non-ACC and engaged state for both.";
 CM_ SG_ 625 SPEED "zero on non-acc drives";
+CM_ SG_ 632 AUTO_STOP_START_DASHLIGHT "1 is off, 0 is on";
+CM_ SG_ 853 9 when pressed (1001);
 
 VAL_ 501 CRUISE_STATE 0 "Off" 1 "CC On" 2 "CC Engaged" 3 "ACC On" 4 "ACC Engaged";
 VAL_ 746 PRNDL 5 "L" 4 "D" 3 "N" 2 "R" 1 "P";
