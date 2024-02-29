@@ -125,6 +125,9 @@ unsigned int volkswagen_mqb_checksum(uint32_t address, const Signal &sig, const 
   // address, and additionally (for SOME addresses) by the message counter.
   uint8_t counter = d[1] & 0x0F;
   switch (address) {
+    case 0x40:  // Airbag_01
+      crc ^= 0x40;
+      break;
     case 0x86:  // LWI_01 Steering Angle
       crc ^= 0x86;
       break;
@@ -137,8 +140,14 @@ unsigned int volkswagen_mqb_checksum(uint32_t address, const Signal &sig, const 
     case 0xFD:  // ESP_21 Electronic Stability Program
       crc ^= (uint8_t[]){0xB4, 0xEF, 0xF8, 0x49, 0x1E, 0xE5, 0xC2, 0xC0, 0x97, 0x19, 0x3C, 0xC9, 0xF1, 0x98, 0xD6, 0x61}[counter];
       break;
+    case 0x101: // ESP_02 Electronic Stability Program
+      crc ^= 0xAA;
+      break;
     case 0x106: // ESP_05 Electronic Stability Program
       crc ^= 0x07;
+      break;
+    case 0x116: // ESP_10 Electronic Stability Program
+      crc ^= 0xAC;
       break;
     case 0x117: // ACC_10 Automatic Cruise Control
       crc ^= 0x16;
@@ -164,6 +173,9 @@ unsigned int volkswagen_mqb_checksum(uint32_t address, const Signal &sig, const 
     case 0x187: // EV_Gearshift "Gear" selection data for EVs with no gearbox
       crc ^= (uint8_t[]){0x7F, 0xED, 0x17, 0xC2, 0x7C, 0xEB, 0x44, 0x21, 0x01, 0xFA, 0xDB, 0x15, 0x4A, 0x6B, 0x23, 0x05}[counter];
       break;
+    case 0x1AB: // ESP_33: Electronic Stability Program
+      crc ^= (uint8_t[]){0x13, 0x21, 0x9B, 0x6A, 0x9A, 0x62, 0xD4, 0x65, 0x18, 0xF1, 0xAB, 0x16, 0x32, 0x89, 0xE7, 0x26}[counter];
+      break;
     case 0x30C: // ACC_02 Automatic Cruise Control
       crc ^= 0x0F;
       break;
@@ -175,6 +187,9 @@ unsigned int volkswagen_mqb_checksum(uint32_t address, const Signal &sig, const 
       break;
     case 0x3C0: // Klemmen_Status_01 ignition and starting status
       crc ^= 0xC3;
+      break;
+    case 0x3D5: // Licht_Anf_01
+      crc ^= (uint8_t[]){0xC5, 0x39, 0xC7, 0xF9, 0x92, 0xD8, 0x24, 0xCE, 0xF1, 0xB5, 0x7A, 0xC4, 0xBC, 0x60, 0xE3, 0xD1}[counter];
       break;
     case 0x65D: // ESP_20 Electronic Stability Program
       crc ^= (uint8_t[]){0xAC, 0xB3, 0xAB, 0xEB, 0x7A, 0xE1, 0x3B, 0xF7, 0x73, 0xBA, 0x7C, 0x9E, 0x06, 0x5F, 0x02, 0xD9}[counter];
