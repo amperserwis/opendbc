@@ -6,13 +6,7 @@
 #include <unordered_map>
 #include <vector>
 
-#include <capnp/dynamic.h>
-#include <capnp/serialize.h>
-
-#ifndef DYNAMIC_CAPNP
-#include "cereal/gen/cpp/log.capnp.h"
-#endif
-
+#include "opendbc/can/logger.h"
 #include "opendbc/can/common_dbc.h"
 
 #define INFO printf
@@ -23,8 +17,6 @@
 #define MAX_BAD_COUNTER 5
 #define CAN_INVALID_CNT 5
 
-void init_crc_lookup_tables();
-
 // Car specific functions
 unsigned int honda_checksum(uint32_t address, const Signal &sig, const std::vector<uint8_t> &d);
 unsigned int toyota_checksum(uint32_t address, const Signal &sig, const std::vector<uint8_t> &d);
@@ -34,6 +26,17 @@ unsigned int volkswagen_mqb_checksum(uint32_t address, const Signal &sig, const 
 unsigned int xor_checksum(uint32_t address, const Signal &sig, const std::vector<uint8_t> &d);
 unsigned int hkg_can_fd_checksum(uint32_t address, const Signal &sig, const std::vector<uint8_t> &d);
 unsigned int pedal_checksum(uint32_t address, const Signal &sig, const std::vector<uint8_t> &d);
+
+struct CanFrame {
+  long src;
+  uint32_t address;
+  std::vector<uint8_t> dat;
+};
+
+struct CanData {
+  uint64_t nanos;
+  std::vector<CanFrame> frames;
+};
 
 class MessageState {
 public:
@@ -61,8 +64,6 @@ public:
 class CANParser {
 private:
   const int bus;
-  kj::Array<capnp::word> aligned_buf;
-
   const DBC *dbc = NULL;
   std::unordered_map<uint32_t, MessageState> message_states;
 
@@ -78,25 +79,22 @@ public:
   CANParser(int abus, const std::string& dbc_name,
             const std::vector<std::pair<uint32_t, int>> &messages);
   CANParser(int abus, const std::string& dbc_name, bool ignore_checksum, bool ignore_counter);
-  #ifndef DYNAMIC_CAPNP
-  void update_string(const std::string &data, bool sendcan);
-  void update_strings(const std::vector<std::string> &data, std::vector<SignalValue> &vals, bool sendcan);
-  void UpdateCans(uint64_t nanos, const capnp::List<cereal::CanData>::Reader& cans);
-  #endif
-  void UpdateCans(uint64_t nanos, const capnp::DynamicStruct::Reader& cans);
-  void UpdateValid(uint64_t nanos);
+  void update(const std::vector<CanData> &can_data, std::vector<SignalValue> &vals);
   void query_latest(std::vector<SignalValue> &vals, uint64_t last_ts = 0);
+
+protected:
+  void UpdateCans(const CanData &can);
+  void UpdateValid(uint64_t nanos);
 };
 
 class CANPacker {
 private:
   const DBC *dbc = NULL;
   std::map<std::pair<uint32_t, std::string>, Signal> signal_lookup;
-  std::map<uint32_t, Msg> message_lookup;
   std::map<uint32_t, uint32_t> counters;
 
 public:
   CANPacker(const std::string& dbc_name);
   std::vector<uint8_t> pack(uint32_t address, const std::vector<SignalPackValue> &values);
-  Msg* lookup_message(uint32_t address);
+  const Msg* lookup_message(uint32_t address);
 };
