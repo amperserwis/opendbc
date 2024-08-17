@@ -11,3 +11,4 @@ pytest-subtests
 hypothesis==6.47.*
 crcmod
 natsort
+https://github.com/commaai/panda.git
