@@ -8,3 +8,6 @@ scons
 pytest
 pytest-xdist
 pytest-subtests
+hypothesis==6.47.*
+crcmod
+natsort

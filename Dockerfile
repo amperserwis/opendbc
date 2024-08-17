@@ -36,7 +36,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   && rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt /tmp/
+COPY panda/requirements.txt /tmp/requirements_panda.txt
 RUN pip3 install --break-system-packages --no-cache-dir -r /tmp/requirements.txt
+RUN pip3 install --break-system-packages --no-cache-dir -r /tmp/requirements_panda.txt
 RUN pip3 install --break-system-packages --no-cache-dir pre-commit==2.15.0 pylint==2.17.4
 
 WORKDIR /project/opendbc
